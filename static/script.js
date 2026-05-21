@@ -145,3 +145,67 @@ async function convert() {
         document.getElementById('convertBtn').disabled = false;
     }
 }
+
+// ===== Bilgi (Info) Modalı =====
+const infoData = {
+    upscale: {
+        title: "Çözünürlük Yükseltme (Upscale)",
+        desc: "<p>Görüntü kalitesini bozmadan çözünürlüğünü yapay olarak artırır.</p><p><strong>Yükseltince:</strong> Daha keskin hatlar elde edilir ancak dönüştürme süresi uzayabilir.</p><p><strong>Düşürünce:</strong> Orijinal çözünürlük korunur, işlem çok daha hızlı biter.</p>"
+    },
+    sharpness: {
+        title: "Keskinlik (Sharpness)",
+        desc: "<p>Resmin kenar keskinliğini artırır veya azaltır.</p><p><strong>Yükseltince:</strong> Kenarlar belirginleşir, SVG yolları daha keskin oluşur. Bulanık fotoğraflar için iyidir.</p><p><strong>Düşürünce:</strong> Daha yumuşak bir görünüm sağlanır.</p>"
+    },
+    contrast: {
+        title: "Kontrast (Contrast)",
+        desc: "<p>Resimdeki renk ve ton farklılıklarını belirginleştirir.</p><p><strong>Yükseltince:</strong> Koyu alanlar daha koyu, açık alanlar daha açık olur. Soluk resimlerde detayları kurtarmak için iyidir.</p><p><strong>Düşürünce:</strong> Orijinal kontrast değerleri korunur.</p>"
+    },
+    colormode: {
+        title: "Renk Modu",
+        desc: "<p>SVG'nin renkli mi yoksa tek renk (Siyah-Beyaz) mi çizileceğini belirler.</p><p><strong>Renkli:</strong> Fotoğrafın doğal renklerinden oluşan bir SVG üretir.</p><p><strong>Siyah-Beyaz:</strong> İki tonlu, genellikle logo veya basit çizimler için uygun bir yapı oluşturur.</p>"
+    },
+    curvemode: {
+        title: "Eğri Modu",
+        desc: "<p>Çizilen SVG yollarının nasıl bağlanacağını seçer.</p><p><strong>Spline:</strong> Yumuşak, doğal ve yuvarlatılmış kavisler oluşturur. Organik çizimler için en iyisidir.</p><p><strong>Polygon:</strong> Keskin ve köşeli çizgiler çizer. Geometrik şekiller ve piksel art için uygundur.</p><p><strong>None:</strong> Hiçbir eğri iyileştirmesi yapılmaz, kaba ve ham bir çizim çıkar.</p>"
+    },
+    hierarchical: {
+        title: "Katman Tipi",
+        desc: "<p>Katmanların üst üste mi bineceğini yoksa puzzle gibi yan yana mı dizileceğini belirler.</p><p><strong>Stacked:</strong> Katmanlar üst üste biner (örneğin beyaz bir arkaplan üzerinde kırmızı bir daire). Çizgilerde boşluk kalma riskini azaltır.</p><p><strong>Cutout:</strong> Her renk bloğu birbirinden oyularak ayrılır. Arkaplan şeffaflığı gereken durumlar için idealdir.</p>"
+    },
+    color_precision: {
+        title: "Renk Hassasiyeti (Color Precision)",
+        desc: "<p>Vektörde kullanılacak renk skalasını belirler.</p><p><strong>Yükseltince:</strong> Daha fazla renk tonu gruplanır, renk sayısı azalır, dosya boyutu küçülür ancak renk kalitesi düşebilir.</p><p><strong>Düşürünce:</strong> Orijinal resme en yakın, çok detaylı renkleri elde edersiniz, ancak çok fazla karmaşık vektör yolu oluşur ve dosya boyutu ciddi oranda artar.</p>"
+    },
+    filter_speckle: {
+        title: "Leke Filtresi (Filter Speckle)",
+        desc: "<p>İstenmeyen küçük noktaları ve lekeleri yok eder.</p><p><strong>Yükseltince:</strong> Daha büyük noktalar bile leke sayılıp yok edilir, temiz ve sade bir görüntü oluşur. Ancak küçük detaylar kaybolabilir.</p><p><strong>Düşürünce:</strong> Resimdeki her bir minik detay çizilir, SVG karmaşıklaşır.</p>"
+    },
+    corner_threshold: {
+        title: "Köşe Eşiği (Corner Threshold)",
+        desc: "<p>Açıların ne kadar sivri olması gerektiğine karar veren derecedir.</p><p><strong>Yükseltince:</strong> Daha geniş açılar bile köşe olarak kabul edilir, şekiller köşeli hale gelir.</p><p><strong>Düşürünce:</strong> Çoğu köşe yuvarlatılır, çok daha organik ve kavisli sonuçlar verir.</p>"
+    },
+    length_threshold: {
+        title: "Yol Uzunluğu (Length Threshold)",
+        desc: "<p>Çizilecek minimum çizgi uzunluğudur.</p><p><strong>Yükseltince:</strong> Kısa olan küçük çizgiler tamamen silinir. Çizimde sadeleşme sağlar.</p><p><strong>Düşürünce:</strong> Tüm küçük ve kısa çizgiler dahil edilir. Yüksek detay gerektiren fotoğraflar için kullanılır.</p>"
+    }
+};
+
+const modal = document.getElementById('infoModal');
+const modalTitle = document.getElementById('modalTitle');
+const modalBody = document.getElementById('modalBody');
+
+function showInfo(param) {
+    const data = infoData[param];
+    if (data) {
+        modalTitle.textContent = data.title;
+        modalBody.innerHTML = data.desc;
+        modal.classList.add('active');
+    }
+}
+
+function closeInfo(event) {
+    // If event is undefined (close button click) or target is the overlay itself
+    if (!event || event.target === modal) {
+        modal.classList.remove('active');
+    }
+}

@@ -59,7 +59,7 @@
 
             <div class="param-row">
                 <div class="param-header">
-                    <span class="param-label">Çözünürlük Yükseltme (Upscale)</span>
+                    <span class="param-label">Çözünürlük Yükseltme (Upscale) <span class="info-icon" onclick="showInfo('upscale')">i</span></span>
                     <span class="param-value" id="val_upscale">1x</span>
                 </div>
                 <input type="range" id="upscale" min="1" max="4" step="1" value="1"
@@ -68,7 +68,7 @@
 
             <div class="param-row">
                 <div class="param-header">
-                    <span class="param-label">Keskinlik (Sharpness)</span>
+                    <span class="param-label">Keskinlik (Sharpness) <span class="info-icon" onclick="showInfo('sharpness')">i</span></span>
                     <span class="param-value" id="val_sharpness">1.0</span>
                 </div>
                 <input type="range" id="sharpness" min="1.0" max="3.0" step="0.1" value="1.0"
@@ -77,7 +77,7 @@
 
             <div class="param-row">
                 <div class="param-header">
-                    <span class="param-label">Kontrast (Contrast)</span>
+                    <span class="param-label">Kontrast (Contrast) <span class="info-icon" onclick="showInfo('contrast')">i</span></span>
                     <span class="param-value" id="val_contrast">1.0</span>
                 </div>
                 <input type="range" id="contrast" min="1.0" max="3.0" step="0.1" value="1.0"
@@ -90,7 +90,7 @@
             <div class="category-title">🔷 Vektör Çizim Ayarları</div>
 
             <div class="radio-group">
-                <div class="param-label">Renk Modu</div>
+                <div class="param-label">Renk Modu <span class="info-icon" onclick="showInfo('colormode')">i</span></div>
                 <div class="radio-options">
                     <div class="radio-option">
                         <input type="radio" name="colormode" id="cm_color" value="color" checked>
@@ -104,7 +104,7 @@
             </div>
 
             <div class="radio-group">
-                <div class="param-label">Eğri Modu</div>
+                <div class="param-label">Eğri Modu <span class="info-icon" onclick="showInfo('curvemode')">i</span></div>
                 <div class="radio-options">
                     <div class="radio-option">
                         <input type="radio" name="mode" id="mode_spline" value="spline" checked>
@@ -122,7 +122,7 @@
             </div>
 
             <div class="radio-group">
-                <div class="param-label">Katman Tipi</div>
+                <div class="param-label">Katman Tipi <span class="info-icon" onclick="showInfo('hierarchical')">i</span></div>
                 <div class="radio-options">
                     <div class="radio-option">
                         <input type="radio" name="hierarchical" id="h_stacked" value="stacked" checked>
@@ -142,7 +142,7 @@
 
             <div class="param-row">
                 <div class="param-header">
-                    <span class="param-label">Renk Hassasiyeti (Color Precision)</span>
+                    <span class="param-label">Renk Hassasiyeti (Color Precision) <span class="info-icon" onclick="showInfo('color_precision')">i</span></span>
                     <span class="param-value" id="val_color_precision">6</span>
                 </div>
                 <input type="range" id="color_precision" min="1" max="8" step="1" value="6"
@@ -151,7 +151,7 @@
 
             <div class="param-row">
                 <div class="param-header">
-                    <span class="param-label">Leke Filtresi (Filter Speckle)</span>
+                    <span class="param-label">Leke Filtresi (Filter Speckle) <span class="info-icon" onclick="showInfo('filter_speckle')">i</span></span>
                     <span class="param-value" id="val_filter_speckle">4</span>
                 </div>
                 <input type="range" id="filter_speckle" min="0" max="16" step="1" value="4"
@@ -160,7 +160,7 @@
 
             <div class="param-row">
                 <div class="param-header">
-                    <span class="param-label">Köşe Eşiği (Corner Threshold)</span>
+                    <span class="param-label">Köşe Eşiği (Corner Threshold) <span class="info-icon" onclick="showInfo('corner_threshold')">i</span></span>
                     <span class="param-value" id="val_corner_threshold">60°</span>
                 </div>
                 <input type="range" id="corner_threshold" min="0" max="90" step="1" value="60"
@@ -169,7 +169,7 @@
 
             <div class="param-row">
                 <div class="param-header">
-                    <span class="param-label">Yol Uzunluğu (Length Threshold)</span>
+                    <span class="param-label">Yol Uzunluğu (Length Threshold) <span class="info-icon" onclick="showInfo('length_threshold')">i</span></span>
                     <span class="param-value" id="val_length_threshold">4.0</span>
                 </div>
                 <input type="range" id="length_threshold" min="3.5" max="10.0" step="0.5" value="4.0"
@@ -178,6 +178,19 @@
         </div>
 
     </section>
+</div>
+
+<!-- INFO MODAL -->
+<div class="modal-overlay" id="infoModal" onclick="closeInfo(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <div class="modal-title" id="modalTitle">Bilgi</div>
+            <button class="modal-close" onclick="closeInfo()">&times;</button>
+        </div>
+        <div class="modal-body" id="modalBody">
+            <!-- Content injected by JS -->
+        </div>
+    </div>
 </div>
 
 <script src="/static/script.js"></script>
