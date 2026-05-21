@@ -28,7 +28,7 @@ Kullanıcının görüntü kalitesini artırması ve `vtracer` kütüphanesinin 
 
 1. Depoyu klonlayın:
 ```bash
-git clone https://github.com/<kullanici-adi>/VectorConverter.git
+git clone https://github.com/agahgok/VectorConverter.git
 cd VectorConverter
 ```
 
