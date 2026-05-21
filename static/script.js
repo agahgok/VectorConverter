@@ -5,17 +5,19 @@ const rootElement = document.documentElement;
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'light') {
     rootElement.classList.add('light-mode');
-    themeToggle.textContent = '🌙';
+    themeToggle.textContent = '🌙 Karanlık Mod';
+} else {
+    themeToggle.textContent = '☀️ Aydınlık Mod';
 }
 
 themeToggle.addEventListener('click', () => {
     rootElement.classList.toggle('light-mode');
     if (rootElement.classList.contains('light-mode')) {
         localStorage.setItem('theme', 'light');
-        themeToggle.textContent = '🌙';
+        themeToggle.textContent = '🌙 Karanlık Mod';
     } else {
         localStorage.setItem('theme', 'dark');
-        themeToggle.textContent = '🌞';
+        themeToggle.textContent = '☀️ Aydınlık Mod';
     }
 });
 
