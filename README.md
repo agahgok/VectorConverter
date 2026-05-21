@@ -6,6 +6,10 @@ Kullanıcının görüntü kalitesini artırması ve `vtracer` kütüphanesinin 
 
 ## Özellikler
 
+- **Kullanıcı Deneyimi (UI/UX)**
+  - 🌙 / ☀️ Aydınlık & Karanlık Mod Seçeneği (Cihaz hafızalı)
+  - ℹ️ Her parametre için detaylı açıklamalar içeren Bilgi Modalları (Açılır pencereler)
+  - Sürükle-bırak dosya yükleme desteği
 - **Görüntü Ön İşleme (Pre-processing)**
   - Çözünürlük Yükseltme (Upscale 1x-4x)
   - Keskinlik (Sharpness)
