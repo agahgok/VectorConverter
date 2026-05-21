@@ -18,6 +18,19 @@
     --radius-sm: 8px;
 }
 
+:root.light-mode {
+    --bg-body: #f4f6f8;
+    --bg-card: #ffffff;
+    --bg-input: #f0f2f5;
+    --bg-hover: #e4e7eb;
+    --accent: #5a52e0;
+    --accent-glow: rgba(90, 82, 224, 0.2);
+    --text-1: #1a1c23;
+    --text-2: #4a5568;
+    --text-3: #718096;
+    --border: #e2e8f0;
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -52,6 +65,23 @@ body {
     font-size: 13px;
     color: var(--text-3);
     margin-left: 4px;
+}
+
+.theme-toggle {
+    background: transparent;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-toggle:hover {
+    background: var(--bg-hover);
 }
 
 /* ===== MAIN LAYOUT ===== */

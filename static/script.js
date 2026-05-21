@@ -1,3 +1,24 @@
+// ===== Tema Ayarları =====
+const themeToggle = document.getElementById('themeToggle');
+const rootElement = document.documentElement;
+
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'light') {
+    rootElement.classList.add('light-mode');
+    themeToggle.textContent = '🌙';
+}
+
+themeToggle.addEventListener('click', () => {
+    rootElement.classList.toggle('light-mode');
+    if (rootElement.classList.contains('light-mode')) {
+        localStorage.setItem('theme', 'light');
+        themeToggle.textContent = '🌙';
+    } else {
+        localStorage.setItem('theme', 'dark');
+        themeToggle.textContent = '🌞';
+    }
+});
+
 // ===== Değer Güncelleme =====
 function updateVal(id, value, suffix = '') {
     document.getElementById('val_' + id).textContent = value + suffix;
