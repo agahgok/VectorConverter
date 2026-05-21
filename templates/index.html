@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VectorConverter Pro</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <span class="logo">VectorConverter</span>
+    <span class="subtitle">Pro — Raster → SVG Dönüştürücü</span>
+</header>
+
+<!-- MAIN -->
+<div class="main">
+
+    <!-- LEFT PANEL -->
+    <aside class="left-panel">
+        <div class="file-drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+            <div class="icon">📂</div>
+            <div class="label">Fotoğraf Seçin veya Sürükleyin</div>
+            <div class="sublabel">PNG, JPG, JPEG, BMP, WebP</div>
+        </div>
+        <input type="file" id="fileInput" accept=".png,.jpg,.jpeg,.bmp,.tiff,.webp" style="display:none">
+
+        <div class="file-info" id="fileInfo">
+            <div class="name" id="fileName"></div>
+            <div class="size" id="fileSize"></div>
+        </div>
+
+        <div class="spacer"></div>
+
+        <div class="status-bar" id="statusBar"></div>
+
+        <button class="convert-btn" id="convertBtn" onclick="convert()">
+            ⚡ SVG'ye Dönüştür
+        </button>
+    </aside>
+
+    <!-- RIGHT PANEL (SETTINGS) -->
+    <section class="right-panel">
+        <div class="settings-title">⚙ Gelişmiş Ayarlar</div>
+
+        <!-- Kategori 1: Ön İşleme -->
+        <div class="category">
+            <div class="category-title">🖼 Görüntü Ön İşleme</div>
+
+            <div class="param-row">
+                <div class="param-header">
+                    <span class="param-label">Çözünürlük Yükseltme (Upscale)</span>
+                    <span class="param-value" id="val_upscale">1x</span>
+                </div>
+                <input type="range" id="upscale" min="1" max="4" step="1" value="1"
+                       oninput="updateVal('upscale', this.value, 'x')">
+            </div>
+
+            <div class="param-row">
+                <div class="param-header">
+                    <span class="param-label">Keskinlik (Sharpness)</span>
+                    <span class="param-value" id="val_sharpness">1.0</span>
+                </div>
+                <input type="range" id="sharpness" min="1.0" max="3.0" step="0.1" value="1.0"
+                       oninput="updateVal('sharpness', parseFloat(this.value).toFixed(1))">
+            </div>
+
+            <div class="param-row">
+                <div class="param-header">
+                    <span class="param-label">Kontrast (Contrast)</span>
+                    <span class="param-value" id="val_contrast">1.0</span>
+                </div>
+                <input type="range" id="contrast" min="1.0" max="3.0" step="0.1" value="1.0"
+                       oninput="updateVal('contrast', parseFloat(this.value).toFixed(1))">
+            </div>
+        </div>
+
+        <!-- Kategori 2: Vektör Çizim -->
+        <div class="category">
+            <div class="category-title">🔷 Vektör Çizim Ayarları</div>
+
+            <div class="radio-group">
+                <div class="param-label">Renk Modu</div>
+                <div class="radio-options">
+                    <div class="radio-option">
+                        <input type="radio" name="colormode" id="cm_color" value="color" checked>
+                        <label for="cm_color">Renkli</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="colormode" id="cm_binary" value="binary">
+                        <label for="cm_binary">Siyah-Beyaz</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="radio-group">
+                <div class="param-label">Eğri Modu</div>
+                <div class="radio-options">
+                    <div class="radio-option">
+                        <input type="radio" name="mode" id="mode_spline" value="spline" checked>
+                        <label for="mode_spline">Spline (Yuvarlak)</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="mode" id="mode_polygon" value="polygon">
+                        <label for="mode_polygon">Polygon (Köşeli)</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="mode" id="mode_none" value="none">
+                        <label for="mode_none">None</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="radio-group">
+                <div class="param-label">Katman Tipi</div>
+                <div class="radio-options">
+                    <div class="radio-option">
+                        <input type="radio" name="hierarchical" id="h_stacked" value="stacked" checked>
+                        <label for="h_stacked">Stacked (Üst üste)</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="hierarchical" id="h_cutout" value="cutout">
+                        <label for="h_cutout">Cutout (Oyuk)</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kategori 3: Motor Parametreleri -->
+        <div class="category">
+            <div class="category-title">🎛 Motor Parametreleri</div>
+
+            <div class="param-row">
+                <div class="param-header">
+                    <span class="param-label">Renk Hassasiyeti (Color Precision)</span>
+                    <span class="param-value" id="val_color_precision">6</span>
+                </div>
+                <input type="range" id="color_precision" min="1" max="8" step="1" value="6"
+                       oninput="updateVal('color_precision', this.value)">
+            </div>
+
+            <div class="param-row">
+                <div class="param-header">
+                    <span class="param-label">Leke Filtresi (Filter Speckle)</span>
+                    <span class="param-value" id="val_filter_speckle">4</span>
+                </div>
+                <input type="range" id="filter_speckle" min="0" max="16" step="1" value="4"
+                       oninput="updateVal('filter_speckle', this.value)">
+            </div>
+
+            <div class="param-row">
+                <div class="param-header">
+                    <span class="param-label">Köşe Eşiği (Corner Threshold)</span>
+                    <span class="param-value" id="val_corner_threshold">60°</span>
+                </div>
+                <input type="range" id="corner_threshold" min="0" max="90" step="1" value="60"
+                       oninput="updateVal('corner_threshold', this.value, '°')">
+            </div>
+
+            <div class="param-row">
+                <div class="param-header">
+                    <span class="param-label">Yol Uzunluğu (Length Threshold)</span>
+                    <span class="param-value" id="val_length_threshold">4.0</span>
+                </div>
+                <input type="range" id="length_threshold" min="3.5" max="10.0" step="0.5" value="4.0"
+                       oninput="updateVal('length_threshold', parseFloat(this.value).toFixed(1))">
+            </div>
+        </div>
+
+    </section>
+</div>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
